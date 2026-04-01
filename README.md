@@ -2,7 +2,7 @@
 
 **Experiment No:** 14
 **Date:** April 1, 2026
-**Student Name:** [Your Name]
+**Student Name:** jayvee 
 
 ---
 
@@ -228,12 +228,5 @@ cd [repository-name]
 python3 "data normalisation and data type conversion.py"
 ```
 
----
-
-## 📧 Author
-
-**Name:** [Your Name]
-**Course:** Data Science / Machine Learning
-**Roll No:** [Your Roll Number]
 
 ---
