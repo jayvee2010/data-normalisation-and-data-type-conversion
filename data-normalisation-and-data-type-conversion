@@ -1,0 +1,106 @@
+#data normalisation and data type conversion
+
+#part a- data normalisation
+import pandas as pd
+import numpy as np
+import sklearn.preprocessing as preprocessing
+
+data={
+    'product':['laptop', 'mobile', 'tablet', 'desktop'],
+    'price':[1000, 500, 300, 1500],
+    'units_sold':[50, 200, 150, 30],
+    'discount':[0.1, 0.2, 0.15, 0.05]
+
+}
+
+df=pd.DataFrame(data)
+print(df)
+
+#min-max normalisation
+df['price_min_max']=(df['price']-df['price'].min())/(df['price'].max()-df['price'].min())
+print(df[['product', 'price', 'price_min_max']])
+df['units_sold_min_max']=(df['units_sold']-df['units_sold'].min())/(df['units_sold'].max()-df['units_sold'].min())
+print(df[['product', 'units_sold', 'units_sold_min_max']])
+
+#normalize multiple columns
+cols=['price', 'units_sold', 'discount']
+df_cols=(df[cols]-df[cols].min())/(df[cols].max()-df[cols].min())
+
+print("\nNormalized DataFrame:")
+print(df_cols)
+
+
+
+
+
+#z-score normalisation
+df['price_z_score']=(df['price']-df['price'].mean())/df['price'].std()
+print("\nZ-score Normalized DataFrame:")
+print(df[['product', 'price', 'price_z_score']])
+
+
+#decimal scaling
+df['price_decimal_scaling']=df['price']/100000
+
+print("\nDecimal Scaling Normalized DataFrame:")
+print(df[['product', 'price', 'price_decimal_scaling']])
+
+
+
+#part-2
+data = {
+    'order_id':[101,102,103,104,105,106],
+    'customer_gender':['m','f','m','f','m','f'],
+    'payment_method':['upi',' credit card','debit card','cash','upi','credit card'],
+    'product_category':['electronics','fashion','home decor','electronics','fashion','home decor'],
+    'city':['new york','los angeles','chicago','houston','phoenix','philadelphia'],
+    'order_amount':[250.75, 100.50, 300.00, 150.25, 200.00, 350.00]
+
+}
+
+df=pd.DataFrame(data)
+print(df)
+
+
+
+from sklearn.preprocessing import LabelEncoder
+#label encoding
+le=LabelEncoder()
+df['customer_gender_encoded']=le.fit_transform(df['customer_gender'])
+print(df[['order_id','customer_gender','customer_gender_encoded']])
+
+df_encoded=pd.get_dummies(df,columns=['payment_method'])
+print(df_encoded)
+
+
+#amazon dataset work
+df=pd.read_csv("/Users/jiyu/Downloads/amazon_products_dataset_Expt-14.csv")
+print(df.head())
+
+#min-max normalisation for the above dataset
+cols=['Price', 'Rating', 'Reviews']
+df_normalized=(df[cols]-df[cols].min())/(df[cols].max()-df[cols].min())
+print("\nNormalized DataFrame:")
+print(df_normalized)
+
+
+#z-score normalisation for the above dataset
+df['price_z_score']=(df['Price']-df['Price'].mean())/df['Price'].std()
+print("\nZ-score Normalized DataFrame:")
+print(df[['Product_Name', 'Price', 'price_z_score']])
+
+
+
+#decimal scaling for the above dataset
+df['price_decimal_scaling']=df['Price']/100000
+print("\nDecimal Scaling Normalized DataFrame:")
+print(df[['Product_Name', 'Price', 'price_decimal_scaling']])
+
+#label encoding for the above dataset
+le=LabelEncoder()
+df['Product_Name_encoded']=le.fit_transform(df['Product_Name'])
+print(df[['Product_Name','Product_Name_encoded']])
+
+#one hot encoding for the above dataset
+df_encoded=pd.get_dummies(df,columns=['Product_Name'])
+print(df_encoded)
